@@ -1,0 +1,11 @@
+Questa lezione ti fornirà una base solida di concetti fondamentali e strumenti essenziali per poter implementare da zero modelli di deep learning.
+
+| **Concetto**      | **Machine Learning (ML)**            | **Deep Learning (DL)**               |
+| ----------------- | ------------------------------------ | ------------------------------------ |
+| Dati in input     | Feature ingegnerizzate manualmente   | Dati grezzi (immagini, testo, audio) |
+| Apprendimento     | Modelli statistici supervisionati    | Reti neurali artificiali             |
+| Algoritmi comuni  | Regressione, Alberi decisionali, SVM | CNN, RNN, Transformer                |
+| Necessità di dati | Medio-bassa                          | Molto alta (milioni di esempi)       |
+| Calcolo richiesto | CPU sufficiente                      | GPU o TPU necessarie                 |
+
+Deep Learning è un sottoinsieme del Machine Learning che usa reti neurali profonde per apprendere automaticamente dai dati.

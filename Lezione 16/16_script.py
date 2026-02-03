@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.datasets import load_iris  # Importa il dataset Iris
 
+# Caricare un dataset (Esempio: Iris dataset)
 dati = load_iris()  # Carica i dati di Iris
 
 # Creiamo un DataFrame Pandas con i dati e aggiungiamo la colonna "target"
