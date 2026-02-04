@@ -177,7 +177,7 @@ Quindi:
 X_test viene scalato usando la media e deviazione standard del training.
 """
 # Creiamo una rete neurale con un solo livello nascosto di 10 neuroni
-mlp = MLPClassifier(hidden_layer_sizes=(10,), max_iter=2000, random_state=42)
+mlp = MLPClassifier(hidden_layer_sizes=(10,), max_iter=1000, random_state=42) #sotto le 1000 iterazioni potrebbe non convergere
 """
 Questa riga costruisce un classificatore MLP (rete neurale).
 

@@ -45,3 +45,63 @@ scaler = StandardScaler()
 #scaler = MinMaxScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
+
+class ReteNeurale(nn.Module):
+    def __init__(self):
+        super(ReteNeurale, self).__init__()
+        self.fc1 = nn.Linear(4, 16)
+        self.fc2 = nn.Linear(16, 8)
+        self.fc3 = nn.Linear(8, 3)
+        self.relu = nn.ReLU()
+
+    def forward(self, x):
+        x = self.relu(self.fc1(x))
+        x = self.relu(self.fc2(x))
+        return self.fc3(x)
+
+modello = ReteNeurale()
+# tutto quello che ti serve sapere si trova su: LEZIONE16_pytorch_classe_spiegazione.md
+
+# 1) Convertiamo in tensori PyTorch
+X_train_t = torch.tensor(X_train, dtype=torch.float32)
+X_test_t  = torch.tensor(X_test, dtype=torch.float32)
+
+y_train_t = torch.tensor(y_train.to_numpy(), dtype=torch.long)
+y_test_t  = torch.tensor(y_test.to_numpy(), dtype=torch.long)
+
+# 2) Loss e ottimizzatore
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.Adam(modello.parameters(), lr=0.01)
+
+# 3) Training loop
+epochs = 200
+for epoch in range(epochs):
+    modello.train()
+
+    logits = modello(X_train_t)               # forward
+    loss = criterion(logits, y_train_t)       # calcolo loss
+
+    optimizer.zero_grad()                     # azzera gradienti
+    loss.backward()                           # backprop
+    optimizer.step()                          # aggiorna pesi
+
+    # stampa ogni tot epoche
+    if (epoch + 1) % 20 == 0:
+        with torch.no_grad():
+            preds = logits.argmax(dim=1)
+            acc = (preds == y_train_t).float().mean().item()
+        print(f"Epoch {epoch+1}/{epochs} - loss={loss.item():.4f} - train_acc={acc:.4f}")
+
+# 4) Valutazione su test
+modello.eval()
+with torch.no_grad():
+    logits_test = modello(X_test_t)
+    y_pred_t = logits_test.argmax(dim=1)
+
+test_acc = (y_pred_t == y_test_t).float().mean().item()
+print("\nTest accuracy:", test_acc)
+
+# 5) Confusion matrix (sklearn vuole numpy)
+y_pred = y_pred_t.cpu().numpy()
+cm = confusion_matrix(y_test, y_pred)
+print("\nConfusion matrix:\n", cm)
