@@ -9,3 +9,5 @@ Questa lezione ti fornirà una base solida di concetti fondamentali e strumenti 
 | Calcolo richiesto | CPU sufficiente                      | GPU o TPU necessarie                 |
 
 Deep Learning è un sottoinsieme del Machine Learning che usa reti neurali profonde per apprendere automaticamente dai dati.
+
+Ho generato 3 script diversi ognuno con un tipo di codice differente, ma comunque applicando l'intelligenza artificiale
