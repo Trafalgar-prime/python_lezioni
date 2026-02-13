@@ -14,3 +14,6 @@
 
 - README_pytorch_attivazione_valutazione :
 	è una spiegazione abbastanza dettagliata dello script : 16_script_torch.py
+
+-  Pytorch_salvataggio :
+	mostra come salvare i parametri e ricaricarli in qualunque momento; c'è anche un esempio completo di struttura di pytorch
