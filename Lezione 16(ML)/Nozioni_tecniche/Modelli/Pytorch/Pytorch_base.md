@@ -226,7 +226,31 @@ W \leftarrow W - \eta \cdot \nabla L
 \]
 
 I pesi e i bias vengono modificati per “scendere” verso il minimo della funzione di costo.
+---
 
+# Sezione: Il Training Loop con monitoraggio
+```python
+print(f"Inizio addestramento...")
+for epoca in range(num_epoche):
+    # 1. Forward Pass: Il modello genera una previsione
+    predizione = modello(input_dati)
+    
+    # 2. Calcolo della Loss: Misuriamo l'errore
+    loss = criterio(predizione, target)
+    
+    # 3. Pulizia dei gradienti: Reset per il nuovo calcolo
+    optimizer.zero_grad()
+    
+    # 4. Backward Pass: Calcolo della pendenza (gradiente)
+    loss.backward()
+    
+    # 5. Step dell'ottimizzatore: Aggiornamento dei pesi
+    optimizer.step()
+    
+    # Stampa dei progressi
+    if (epoca + 1) % 10 == 0:
+        print(f'Epoca [{epoca+1}/{num_epoche}], Errore: {loss.item():.4f}')
+```
 ---
 
 ## (Extra) Mini-esempio completo e coerente
