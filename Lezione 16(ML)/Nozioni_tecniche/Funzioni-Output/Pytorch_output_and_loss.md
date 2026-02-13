@@ -93,3 +93,162 @@ In questo caso, l'ultimo layer del modello dovrebbe rimanere **lineare**
 Nella classificazione multiclasse (es. distinguere tra 3 tipi di
 galassie), il modello deve fornire **un'unica risposta**:\
 cioè **una sola classe** scelta tra tutte quelle possibili.
+
+In PyTorch, la scelta dell'ultimo layer e della funzione di loss dipende
+direttamente dal tipo di problema che stiamo affrontando. Di seguito una
+guida strutturata per i quattro casi principali.
+
+------------------------------------------------------------------------
+
+## 1️⃣ Modello per Regressione (Valori Continui) 📈
+
+Nel caso della regressione vogliamo prevedere un valore numerico
+continuo (es. la massa di un pianeta, la temperatura di una stella, una
+coordinata spaziale).
+
+### 🔹 Output Layer
+
+nn.Linear(hidden_size, 1)
+
+Un solo neurone in uscita perché dobbiamo prevedere un singolo valore
+scalare.
+
+### 🔹 Attivazione Finale
+
+Nessuna attivazione (identità) → caso standard.
+
+nn.ReLU() → solo se sappiamo che il valore previsto deve essere
+necessariamente positivo.
+
+### 🔹 Loss
+
+nn.MSELoss()
+
+oppure
+
+nn.L1Loss()
+
+MSELoss penalizza maggiormente errori grandi.
+
+L1Loss (MAE) è più robusta agli outlier.
+
+------------------------------------------------------------------------
+
+## 2️⃣ Modello per Classificazione Binaria ⚖️
+
+Qui dobbiamo scegliere tra due opzioni mutualmente esclusive (es.
+"Segnale" vs "Rumore").
+
+### 🔹 Output Layer
+
+nn.Linear(hidden_size, 1)
+
+Un solo neurone che rappresenta la probabilità della classe positiva.
+
+### 🔹 Attivazione Finale
+
+nn.Sigmoid()
+
+La Sigmoid comprime l'output tra 0 e 1, permettendo un'interpretazione
+probabilistica.
+
+### 🔹 Loss
+
+nn.BCELoss()
+
+⚠ Nota importante: In alternativa (e più stabile numericamente) si può
+usare:
+
+nn.BCEWithLogitsLoss()
+
+In questo caso non bisogna applicare la Sigmoid nel modello, perché la
+loss la integra internamente.
+
+------------------------------------------------------------------------
+
+## 3️⃣ Modello per Classificazione Multiclasse 🏷️
+
+Dobbiamo scegliere una sola categoria tra $N$ possibili (es. "Protone",
+"Neutrone", "Elettrone").
+
+### 🔹 Output Layer
+
+nn.Linear(hidden_size, num_classi)
+
+Il numero di neuroni in uscita è pari al numero di classi.
+
+### 🔹 Attivazione Finale
+
+Nessuna attivazione nel modello (se si usa la loss standard di PyTorch).
+
+### 🔹 Loss
+
+nn.CrossEntropyLoss()
+
+⚠ Nota Tecnica Fondamentale
+
+nn.CrossEntropyLoss() combina internamente:
+
+LogSoftmax
+
+NLLLoss
+
+Per questo motivo:
+
+Il modello deve restituire logits grezzi (senza Softmax).
+
+Non bisogna applicare Softmax nel forward().
+
+La loss si occupa automaticamente della normalizzazione probabilistica.
+
+------------------------------------------------------------------------
+
+## 4️⃣ Modello per Classificazione Multilabel 📑
+
+In questo scenario un campione può appartenere a più etichette
+contemporaneamente (es. una stella può contenere più elementi chimici).
+
+Ogni etichetta è trattata come un problema binario indipendente.
+
+### 🔹 Output Layer
+
+nn.Linear(hidden_size, num_labels)
+
+Un neurone per ogni etichetta.
+
+### 🔹 Attivazione Finale
+
+nn.Sigmoid()
+
+Applicata separatamente a ogni neurone in uscita.
+
+### 🔹 Loss
+
+Opzione consigliata:
+
+nn.BCEWithLogitsLoss()
+
+Oppure:
+
+nn.BCELoss()
+
+(se la Sigmoid è già stata applicata nel modello)
+
+⚠ Nota tecnica
+
+BCEWithLogitsLoss() è preferibile perché:
+
+-   integra internamente la Sigmoid
+-   è più stabile numericamente
+-   evita problemi di saturazione
+
+------------------------------------------------------------------------
+
+## 📌 Riassunto Concettuale
+
+  Task          Output      Attivazione Finale   Loss
+  ------------- ----------- -------------------- ---------------------
+  Regressione   1 neurone   Nessuna              MSE / L1
+  Binaria       1 neurone   Sigmoid              BCE / BCEWithLogits
+  Multiclasse   N neuroni   Nessuna              CrossEntropy
+  Multilabel    N neuroni   Sigmoid              BCEWithLogits
