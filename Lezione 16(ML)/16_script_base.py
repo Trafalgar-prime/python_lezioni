@@ -283,7 +283,7 @@ score non cambia il modello: è solo valutazione.
 """
 
 # Predizioni sul test set
-y_pred = mlp.predict(X_test)
+y_pred = mlp.predict(X_test) #la predizione va fatta sempre sul X_test, sulla X_train è solo per vedere se il modello mi ha tirato fuori qualcosa
 #proba = mlp.predict_proba(X_test) #se volessi le probabilità invece che le classi
 print(y_pred)
 #print(proba)

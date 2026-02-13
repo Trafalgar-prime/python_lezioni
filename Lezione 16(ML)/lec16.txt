@@ -10,4 +10,5 @@ Questa lezione ti fornirà una base solida di concetti fondamentali e strumenti 
 
 Deep Learning è un sottoinsieme del Machine Learning che usa reti neurali profonde per apprendere automaticamente dai dati.
 
-Ho generato 3 script diversi ognuno con un tipo di codice differente, ma comunque applicando l'intelligenza artificiale
+Ho generato 3 script diversi ognuno con un tipo di codice differente, ma comunque applicando l'intelligenza artificiale, ho generato con sklearn poi con tensorflow e con pytorch, con ogni possibile evaluation:
+nelle varie cartelle ci sono anche delle implementazioni di funzioni, per ognuno dei modelli utilizzati; 

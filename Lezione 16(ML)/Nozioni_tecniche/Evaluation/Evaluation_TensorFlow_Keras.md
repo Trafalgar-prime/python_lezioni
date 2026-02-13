@@ -15,7 +15,7 @@ Questo documento spiega **come valutare correttamente un modello in TensorFlow/K
 1. Preparazione dataset (`tf.data`)
 2. `model.compile(loss=..., metrics=[...])`
 3. `model.fit(..., validation_data=...)`
-4. `model.evaluate(test_ds)`
+4. `model.evaluate(test_ds)`  Test_ds = X_test
 5. Analisi avanzata su `model.predict()` (confusion matrix, soglie, calibration, ecc.)
 
 **3 livelli di valutazione:**
@@ -85,6 +85,11 @@ model.compile(
     metrics=[tf.keras.metrics.CategoricalAccuracy(name="acc")]
 )
 ```
+| Target          | Loss                          |
+| --------------- | ----------------------------- |
+| One-hot         | CategoricalCrossentropy       |
+| Interi (0..K-1) | SparseCategoricalCrossentropy |
+
 
 Sparse labels (0..K-1):
 ```python
@@ -166,7 +171,7 @@ callbacks = [
 ## 6) Valutazione finale: model.evaluate()
 
 ```python
-results = model.evaluate(test_ds, return_dict=True)
+results = model.evaluate(X_test, Y_test, return_dict=True)
 print(results)
 ```
 

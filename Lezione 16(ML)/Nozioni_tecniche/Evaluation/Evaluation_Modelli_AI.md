@@ -102,6 +102,12 @@ di soglia
 -   **F1**: compromesso precision/recall
 
 Varianti: - Fβ - Macro / Micro / Weighted averaging
+| Tipo problema | average da usare         |
+| ------------- | ------------------------ |
+| Binaria       | niente (default)         |
+| Multiclasse   | macro / weighted / micro |
+| Multi-label   | macro / micro            |
+
 
 ------------------------------------------------------------------------
 

@@ -9,13 +9,13 @@
   1    Regressione       Valore continuo    Numero reale    Prezzo casa,     Regressione   MAE, MSE,
                                                             temperatura      lineare, NN   RMSE
 
-  2    Classificazione   2 classi           0/1             Spam detection   Logistic, SVM Accuracy,
+  2    Classificazione   2 classi           0/1             Spam detection   Logistic,SVM  Accuracy,
        binaria                                                                             Precision
 
-  3    Classificazione   1 classe su N      Label /         Image            Softmax NN    Accuracy, F1
+  3    Classificazione   1 classe su N      Label /         Image            Softmax NN    Accuracy, F1   (un vettore con tutte le classi, ma la sola classe corretta ha 1 mentre tutte le altre 0) ONE-HOT
        multiclasse                          probabilità     classification                 
 
-  4    Classificazione   Più classi         Vettore binario Tag articoli     NN sigmoid    Hamming loss
+  4    Classificazione   Più classi         Vettore binario Tag articoli     NN sigmoid    Hamming loss   
        multilabel                                                                          
 
   5    Output            Incertezza         Distribuzione   Risk prediction  Bayesian      Log-loss
@@ -48,3 +48,10 @@
 1.  Definisci l'output
 2.  Seleziona il modello
 3.  Usa loss e metriche corrette
+
+
+| Problema reale | Architettura corretta |
+| -------------- | --------------------- |
+| 10 classi      | Dense(10) + softmax   |
+| 2 classi       | Dense(1) + sigmoid    |
+| Multi-label    | Dense(K) + sigmoid    |
