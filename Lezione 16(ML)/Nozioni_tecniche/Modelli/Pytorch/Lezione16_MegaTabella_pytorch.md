@@ -8,6 +8,31 @@
 
 ---
 
+## -1)IMPORTANTISSIMO DA RICORDARE
+
+- Senza questa conversione quindi : 
+
+```python
+# 1) Convertiamo in tensori PyTorch
+X_train_t = torch.tensor(X_train, dtype=torch.float32) #la X sempre in float32
+X_test_t  = torch.tensor(X_test, dtype=torch.float32)
+
+Y_train_t = torch.tensor(Y_train, dtype=torch.long) #il target sempre in long int
+Y_test_t  = torch.tensor(Y_test, dtype=torch.long)
+
+```
+ - Il codice non gira se tutti i dati non vengono passati come tensori di pytorch quindi bisogna assolutamente controllarlo;
+
+```python
+X train tipo : <class 'numpy.ndarray'>
+X test tipo : <class 'numpy.ndarray'>
+Y train tipo : <class 'numpy.ndarray'>
+Y test tipo : <class 'numpy.ndarray'>
+X train tipo : <class 'torch.Tensor'>
+X test tipo : <class 'torch.Tensor'>
+Y train tipo : <class 'torch.Tensor'>
+Y test tipo : <class 'torch.Tensor'>
+```
 ## 0) I 10 modelli/archetipi PyTorch più importanti (per non andare all’infinito)
 
 1. **Linear/Logistic**: `nn.Linear` (+ loss adatta)
